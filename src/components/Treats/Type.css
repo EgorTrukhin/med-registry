@@ -1,0 +1,11 @@
+.type-content {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 30px;
+  border: 2px solid #0b76ef;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer
+}

@@ -1,0 +1,34 @@
+.tabs-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+}
+
+.tab-content {
+  height: 100%;
+  background-color: white;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-top-right-radius: 15px;
+  padding: 20px;
+}
+
+.tabs-nav {
+  display: flex;
+}
+
+.tab {
+  padding: 10px 20px;
+  background-color: #63acff;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border: 1px solid #0b76ef;
+  border-left: none;
+  cursor: pointer;
+}
+
+.tab.active {
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+}
