@@ -1,6 +1,7 @@
 import { ArrowDownIcon } from "../../icons/ArrowDownIcon";
 import { ArrowUpIcon } from "../../icons/ArrowUpIcon";
 import { StateTreat } from "../../store/store";
+import { SearchControl } from "../controls/SearchControl/SearchControl";
 import { CHECK_TREAT, TreatsContainer } from "./TreatsContainer";
 import "./Type.css";
 
@@ -10,26 +11,38 @@ interface TypeProps {
   active: boolean;
   treats?: Array<StateTreat>;
   onExpand: (ident) => void;
-  onItemCheck?: () => void;
+  onTreatChange?: (id, type, date?) => void;
+  onSearchChange?: (text) => void;
+  searchValue?: string;
 }
 
 export const Type = (props: TypeProps) => {
-  const {name, ident, active, treats, onExpand, onItemCheck} = props;
+  const {name, ident, active, treats, onExpand, onTreatChange, onSearchChange, searchValue} = props;
 
-  if (active) {
+  const getHeader = () => {
     return (
-      <div className="type-content" onClick={() => onExpand(ident)}>
+      <div className="type-content-header" onClick={() => onExpand(ident)}>
         <span>{name}</span>
-        <TreatsContainer type={CHECK_TREAT} treats={treats}/>
-        <ArrowUpIcon />
+        {active ? <ArrowUpIcon /> : <ArrowDownIcon />}
       </div>
     );
   }
 
   return (
-    <div className="type-content" onClick={() => onExpand(ident)}>
-      <span>{name}</span>
-      <ArrowDownIcon />
+    <div className="type-content">
+      {getHeader()}
+      {
+        active && <SearchControl value={searchValue} search={onSearchChange}/>
+      }
+      {
+      active && <TreatsContainer 
+        onTreatChange={onTreatChange} 
+        style={"type-content-container"} 
+        typeIdent= {ident} 
+        itemMode={CHECK_TREAT} 
+        treats={treats}
+      />
+      }
     </div>
   );
 }

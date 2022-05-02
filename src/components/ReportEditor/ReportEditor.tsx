@@ -9,6 +9,7 @@ export const ReportEditor = () => {
   const expandedTypeIdent = store.getExpandedTypeIdent();
   let treats: Array<StateTreat> = [];
   let boardTreats: Array<StateTreat> = []
+  let searchValue = store.getSearchValue();
   if (expandedTypeIdent) {
     const typeByIdent = store.getStateType(expandedTypeIdent);
     treats = typeByIdent.treats;
@@ -19,6 +20,18 @@ export const ReportEditor = () => {
     store.setExpandedTypeIdent(expandedTypeIdent !== ident ? ident : null);
   }
 
+  const onTreatChange = (id, type, date) => {
+    store.onTreatChange(id, type, date);
+  }
+
+  const onSearchChange = (text) => {
+    store.onSearchChange(text);
+  } 
+
+  const onClearAll = (type) => {
+    store.onClearAll(type);
+  }
+
   return (
     <div className="report-editor-content">
       <Sidebar 
@@ -26,13 +39,16 @@ export const ReportEditor = () => {
         expandedTypeTreats={treats}
         expandedTypeIdent={expandedTypeIdent}
         onExpand={onExpand}
-        onItemCheck={() => console.log()}
+        onTreatChange={onTreatChange}
+        onSearchChange={onSearchChange}
+        searchValue={searchValue}
       />
       <Board 
+        typeIdent={expandedTypeIdent}
         name={types[expandedTypeIdent] || ""}
         treats={boardTreats}
-        onDateChange={() => console.log()}
-        onDeleteTreat={() => console.log()}
+        onTreatChange={onTreatChange}
+        onClearAll={onClearAll}
       />
     </div>
   );

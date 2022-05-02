@@ -6,8 +6,7 @@
 .report-editor-content .sidebar-content,
 .report-editor-content .board-content
  {
-  background-color: white;
-  border: 1px solid #0b76ef;
+  border: 2px solid #2A98C7;
   border-radius: 15px;
   padding: 15px;
 }

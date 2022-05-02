@@ -1,0 +1,9 @@
+.search-control {
+  margin: 0 20px 20px 20px;
+  display: flex;
+}
+
+.search-control input {
+  width: 100%;
+  padding: 10px;
+}

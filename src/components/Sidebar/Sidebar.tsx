@@ -7,11 +7,13 @@ interface SidebarProps {
   expandedTypeTreats: Array<StateTreat>;
   expandedTypeIdent: string;
   onExpand: (ident) => void;
-  onItemCheck: () => void;
+  onTreatChange: (id, type, date?) => void;
+  onSearchChange?: (text) => void;
+  searchValue?: string;
 }
 
 export const Sidebar = (props: SidebarProps) => {
-  const {types, expandedTypeTreats, expandedTypeIdent, onExpand, onItemCheck} = props;
+  const {types, expandedTypeTreats, expandedTypeIdent, onExpand, onTreatChange, onSearchChange, searchValue} = props;
   return (
     <div className="sidebar-content">
       {
@@ -25,7 +27,9 @@ export const Sidebar = (props: SidebarProps) => {
               active={true} 
               treats={expandedTypeTreats}
               onExpand={onExpand}
-              onItemCheck={onItemCheck}
+              onTreatChange={onTreatChange}
+              onSearchChange={onSearchChange}
+              searchValue={searchValue}
             />
           }
 

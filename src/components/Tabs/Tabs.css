@@ -6,6 +6,7 @@
 }
 
 .tab-content {
+  overflow: hidden;
   height: 100%;
   background-color: white;
   border-bottom-left-radius: 15px;
@@ -20,10 +21,10 @@
 
 .tab {
   padding: 10px 20px;
-  background-color: #63acff;
+  background-color: #7ED1F3;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  border: 1px solid #0b76ef;
+  border: 1px solid #2A98C7;
   border-left: none;
   cursor: pointer;
 }

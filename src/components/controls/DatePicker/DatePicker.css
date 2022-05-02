@@ -1,0 +1,16 @@
+.react-date-picker {
+  border: 1px solid #2A98C7;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 5px;
+  margin-right: 20px;
+}
+
+.react-date-picker__wrapper {
+  border: none;
+}
+
+.react-calendar {
+  border: 2px solid #2A98C7;
+  border-radius: 10px;
+}

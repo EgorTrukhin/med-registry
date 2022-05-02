@@ -1,4 +1,6 @@
 .sidebar-content {
   border: none !important;
   padding: 5px !important;
+  overflow: auto;
+  direction: rtl;
 }
