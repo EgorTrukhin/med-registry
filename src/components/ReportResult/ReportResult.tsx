@@ -1,34 +1,102 @@
-import { Document, Packer } from "docx"
-import { saveAs } from "file-saver"
+import { Document, Packer, Paragraph, Table, TableCell, TableRow, WidthType, HeightRule, TextRun } from "docx";
 
 export const ReportResult = (props) => {
-  /*const saveDocumentToFile = (doc, fileName) => {
-    // Create new instance of Packer for the docx module
-    const packer = new Packer()
-    // Create a mime type that will associate the new file with Microsoft Word
-    const mimeType =
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    // Create a Blob containing the Document instance and the mimeType
-    packer.toBlob(doc).then(blob => {
-      const docblob = blob.slice(0, blob.size, mimeType)
-      // Save the file using saveAs from the file-saver package
-      saveAs(docblob, fileName)
+  const FileSaver = require('file-saver');
+  const COLUMN_WIDTH = [1000, 3500, 1000, 1000, 3500, 1000];
+  const tableCellText = (content) => {
+    return new Paragraph({
+      children: [
+        new TextRun({
+          text: content,
+          size: "11pt",
+          font: "Calibri",
+          allCaps: true,
+        })
+      ]
+    });
+  }
+  const getTableHeader = () => {    
+    const headerRow = new TableRow({
+      children: [
+          new TableCell({
+            width: {
+              size: 1000,
+              type: WidthType.DXA,
+            },
+            children: [tableCellText("Дата назначения")],
+          }),
+          new TableCell({
+            width: {
+              size: 3500,
+              type: WidthType.DXA,
+            },
+            children: [tableCellText("ИНЪЕКЦИИ")],
+          }),
+          new TableCell({
+            width: {
+              size: 1000,
+              type: WidthType.DXA,
+            },
+            children: [tableCellText("Дата отмены")],
+          }),
+          new TableCell({
+            width: {
+              size: 1000,
+              type: WidthType.DXA,
+            },
+            children: [tableCellText("Дата назначения")],
+          }),
+          new TableCell({
+            width: {
+              size: 3500,
+              type: WidthType.DXA,
+            },
+            children: [tableCellText("ВНУТРЕННЕЕ")],
+          }),
+          new TableCell({
+            width: {
+              size: 1000,
+              type: WidthType.DXA,
+            },
+            children: [tableCellText("Дата отмены")],
+          }),
+      ],
     })
+
+    return headerRow;
   }
 
-  const generateWordDocument = (event) => {
-    let doc = new Document()
-    doc.createParagraph("Title")
-    doc.createParagraph("Subtitle")
-    doc.createParagraph("Heading 1")
-    doc.createParagraph("Heading 2")
-    doc.createParagraph(
-      "Aliquam gravida quam sapien, quis dapibus eros malesuada vel. Praesent tempor aliquam iaculis. Nam ut neque ex. Curabitur pretium laoreet nunc, ut ornare augue aliquet sed. Pellentesque laoreet sem risus. Cras sodales libero convallis, convallis ex sed, ultrices neque. Sed quis ullamcorper mi. Ut a leo consectetur, scelerisque nibh sit amet, egestas mauris. Donec augue sapien, vestibulum in urna et, cursus feugiat enim. Ut sit amet placerat quam, id tincidunt nulla. Cras et lorem nibh. Suspendisse posuere orci nec ligula mattis vestibulum. Suspendisse in vestibulum urna, non imperdiet enim. Vestibulum vel dolor eget neque iaculis ultrices."
-    )
-    saveDocumentToFile(doc, "New Document.docx")
-  }*/
+  const test = () => {
+    const table = new Table({
+      columnWidths: COLUMN_WIDTH,
+      rows: [getTableHeader()]
+      });
+    const doc = new Document({
+      sections: [{
+        properties: {
+          page: {
+              margin: {
+                  top: 700,
+                  right: 700,
+                  bottom: 700,
+                  left: 700,
+              },
+          },
+        },
+        children: [table],
+      }],
+    });
+
+    Packer.toBlob(doc).then((blob) => {
+      // saveAs from FileSaver will download the file
+      FileSaver.saveAs(blob, "example.docx");
+    });
+  }
 
   return (
-    <div>ReportResult</div>
+    <div>
+      ReportResult
+      <button onClick={test}>test</button>
+    </div>
   );
 }
