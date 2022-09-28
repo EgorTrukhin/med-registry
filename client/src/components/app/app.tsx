@@ -12,10 +12,24 @@ const App = () => {
       ident: RESULT_TAB
     }
   ];
+
+  const test = async () => {
+    const newPath = window.location.origin + "/api/test";
+    const response = await fetch(newPath);
+    const res = await response.json();
+    console.log(res);
+  }
   
   return (
     <div className="app-container">
       <Tabs tabs={tabs}/>
+      <button
+        onClick={() => {
+          test();
+        }}
+      >
+        test
+      </button>
     </div>
   );
 }
