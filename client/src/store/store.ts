@@ -42,6 +42,7 @@ interface IStore {
   _subscriber: any;
   _searchValue: string;
   subscribe: (observer) => void;
+  getFinalResult: () => { [ident: string]: StoreStateItem };
   getExpandedTypeIdent: () => string;
   setExpandedTypeIdent: (ident) => void;
   getStateType: (ident) => StoreStateItem;
@@ -88,6 +89,9 @@ export const store: IStore = {
   setExpandedTypeIdent(ident) {
     this._state.expandedTypeIdent = ident;
     this._subscriber();
+  },
+  getFinalResult() {
+    return this._state.types;
   },
   getTypes() {
     return this._types;

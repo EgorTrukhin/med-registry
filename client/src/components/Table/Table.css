@@ -1,0 +1,8 @@
+.table-doc {
+  flex-grow: 1 !important;
+  overflow: auto !important;
+}
+
+.docx-wrapper {
+  background-color: transparent !important;
+}
