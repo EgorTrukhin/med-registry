@@ -6,14 +6,14 @@ export const EDIT_TREAT = "EDIT-TREAT";
 
 interface TreatsContainerProps {
   style?: string;
-  typeIdent: string;
+  typeId: number;
   itemMode: string;
   treats: Array<StateTreat>;
   onTreatChange?: (id, type, date?) => void;
 }
 
 export const TreatsContainer = (props: TreatsContainerProps) => {
-  const {style, typeIdent, itemMode, treats, onTreatChange} = props;
+  const {style, typeId, itemMode, treats, onTreatChange} = props;
 
   const getContent = () => {
     switch (itemMode) {
@@ -21,15 +21,15 @@ export const TreatsContainer = (props: TreatsContainerProps) => {
         return (
           treats.map(treat => {
             const {id, name, checked} = treat;
-            return <CheckTreat type={typeIdent} id={id} name={name} checked={checked} onTreatChange={onTreatChange}/>
+            return <CheckTreat typeId={typeId} id={id} name={name} checked={checked} onTreatChange={onTreatChange}/>
           })
         );
       case EDIT_TREAT:
         return (
           treats.map(treat => {
             const {id, name, date} = treat;
-            return <EditTreat 
-              type={typeIdent} 
+            return <EditTreat
+              typeId={typeId}
               id={id} 
               name={name} 
               date={date} 

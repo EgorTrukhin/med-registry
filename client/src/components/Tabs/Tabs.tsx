@@ -1,10 +1,13 @@
-import { useState } from "react";
+import {useContext, useState } from "react";
 import { ReportEditor } from "../ReportEditor/ReportEditor";
 import { ReportResult } from "../ReportResult/ReportResult";
 import "./Tabs.css";
+import {Database} from "../Database/Database";
+import { observer } from "mobx-react-lite";
 
-export const EDIT_TAB = "EDIT-TAB";
-export const RESULT_TAB = "RESULT-TAB";
+export const EDIT_TAB = "EDIT_TAB";
+export const RESULT_TAB = "RESULT_TAB";
+export const DB_TAB = "DB_TAB";
 
 interface ITab {
   name: string;
@@ -15,21 +18,28 @@ interface TabsProps {
   tabs: Array<ITab>;
 }
 
-export const Tabs = (props: TabsProps) => {
-  const {tabs} = props;
-  const [activeIdent, onChange] = useState(EDIT_TAB);
+export const Tabs = observer((props: TabsProps) => {
+  const { tabs } = props;
+  const [activeIdent, onChange] = useState(DB_TAB);
+
   const tabContent = (ident) => {
     switch (ident) {
+      case DB_TAB:
+        return (
+            <div className="tab-content">
+              <Database />
+            </div>
+        );
       case EDIT_TAB:
         return (
           <div className="tab-content">
-            <ReportEditor />
+              <ReportEditor />
           </div>
         );
       case RESULT_TAB:
         return (
           <div className="tab-content">
-            <ReportResult />
+              <ReportResult />
           </div>
         );
     }
@@ -56,4 +66,4 @@ export const Tabs = (props: TabsProps) => {
       {tabContent(activeIdent)}
     </div>
   );
-}
+});

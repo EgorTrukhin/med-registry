@@ -1,0 +1,17 @@
+.select-control {
+    color: #0F2232;
+    border: 1px solid #0f223236 !important;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.select-control:hover,
+.select-control:focus,
+.select-control:focus-visible{
+    border: 1px solid rgba(15, 34, 50, 0.58) !important;
+    outline: none;
+}
+
+.select-control-item {
+    color: #0F2232;
+}

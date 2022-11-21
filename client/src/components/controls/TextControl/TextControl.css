@@ -1,0 +1,37 @@
+.text-control {
+    color: #0F2232;
+    border: none;
+    line-height: 20px;
+    border-bottom: 1px solid #0f223273;
+    padding-left: 10px;
+}
+
+.text-control:hover,
+.text-control:focus,
+.text-control:focus-visible{
+    outline: none;
+    border-bottom: 1px solid #0F2232;
+}
+
+.text-control input::placeholder {
+    color: #0f223288;
+}
+
+.invalid-value-control {
+    border: 1px solid #ff0000 !important;
+}
+
+.invalid-value-control-tooltip {
+    color: #ff0000;
+    font-size: 12px;
+}
+
+.control-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.control-wrapper label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}

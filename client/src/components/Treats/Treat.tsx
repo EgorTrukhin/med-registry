@@ -4,7 +4,7 @@ import { DateControl } from "../controls/DatePicker/DatePicker";
 interface TreatProps {
   id: number;
   name: string;
-  type: string;
+  typeId: number;
   onTreatChange: (id, type, date?) => void;
 }
 
@@ -13,9 +13,9 @@ interface EditTreatProps extends TreatProps {
 }
 
 export const EditTreat = (props: EditTreatProps) => {
-  const {id, name, date, type, onTreatChange} = props;
+  const {id, name, date, typeId, onTreatChange} = props;
   const onDateChange = (date) => {
-    onTreatChange(id, type, date);
+    onTreatChange(id, typeId, date);
   }
   return (
     <div className="treat edit-treat">
@@ -23,7 +23,7 @@ export const EditTreat = (props: EditTreatProps) => {
         <DateControl date={date} onDateChange={onDateChange}/>
         {name}
       </div>
-      <div onClick={() => onTreatChange(id, type)}>
+      <div onClick={() => onTreatChange(id, typeId)}>
         <CrossIcon />
       </div>
     </div>
@@ -35,11 +35,11 @@ interface CheckTreatProps extends TreatProps {
 }
 
 export const CheckTreat = (props: CheckTreatProps) => {
-  const {type, id, name, checked, onTreatChange} = props;
+  const {typeId, id, name, checked, onTreatChange} = props;
   const ident = String(id);
   return (
     <div className="treat check-treat">
-      <input type="checkbox" className="custom-checkbox" id={ident} name={ident} checked={checked} onChange={() => onTreatChange(id, type)}/>
+      <input type="checkbox" className="custom-checkbox" id={ident} name={ident} checked={checked} onChange={() => onTreatChange(id, typeId)}/>
       <label htmlFor={ident}>{name}</label>
     </div>
   );

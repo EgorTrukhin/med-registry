@@ -7,7 +7,7 @@ import "./Type.css";
 
 interface TypeProps {
   name: string;
-  ident: string;
+  id: number;
   active: boolean;
   treats?: Array<StateTreat>;
   onExpand: (ident) => void;
@@ -17,11 +17,11 @@ interface TypeProps {
 }
 
 export const Type = (props: TypeProps) => {
-  const {name, ident, active, treats, onExpand, onTreatChange, onSearchChange, searchValue} = props;
+  const {name, id, active, treats, onExpand, onTreatChange, onSearchChange, searchValue} = props;
 
   const getHeader = () => {
     return (
-      <div className="type-content-header" onClick={() => onExpand(ident)}>
+      <div className="type-content-header" onClick={() => onExpand(id)}>
         <span>{name}</span>
         {active ? <ArrowUpIcon /> : <ArrowDownIcon />}
       </div>
@@ -38,7 +38,7 @@ export const Type = (props: TypeProps) => {
       active && <TreatsContainer 
         onTreatChange={onTreatChange} 
         style={"type-content-container"} 
-        typeIdent= {ident} 
+        typeId= {id}
         itemMode={CHECK_TREAT} 
         treats={treats}
       />

@@ -1,11 +1,11 @@
-import { ITypesNames, StateTreat } from "../../store/store";
+import { StateTreat } from "../../store/store";
 import { Type } from "../Treats/Type";
 import "./Sidebar.css";
 
 interface SidebarProps {
-  types: ITypesNames;
+  types: any;
   expandedTypeTreats: Array<StateTreat>;
-  expandedTypeIdent: string;
+  expandedTypeId: string;
   onExpand: (ident) => void;
   onTreatChange: (id, type, date?) => void;
   onSearchChange?: (text) => void;
@@ -13,17 +13,17 @@ interface SidebarProps {
 }
 
 export const Sidebar = (props: SidebarProps) => {
-  const {types, expandedTypeTreats, expandedTypeIdent, onExpand, onTreatChange, onSearchChange, searchValue} = props;
+  const {types, expandedTypeTreats, expandedTypeId, onExpand, onTreatChange, onSearchChange, searchValue} = props;
   return (
     <div className="sidebar-content">
       {
-        Object.keys(types).map(type => {
-          const name = types[type];
-          const ident = type;
-          if (ident === expandedTypeIdent) {
+        types.map(type => {
+          const id = type.id;
+          const name = type.name;
+          if (id === expandedTypeId) {
             return <Type 
               name={name} 
-              ident={ident} 
+              id={id}
               active={true} 
               treats={expandedTypeTreats}
               onExpand={onExpand}
@@ -35,7 +35,7 @@ export const Sidebar = (props: SidebarProps) => {
 
           return <Type 
             name={name} 
-            ident={ident} 
+            id={id}
             active={false} 
             onExpand={onExpand}
           />

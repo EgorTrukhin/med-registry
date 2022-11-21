@@ -1,46 +1,56 @@
-import { 
-  Document, 
-  Packer, 
-  Table, 
-} from "docx";
-import { useEffect } from "react";
-import "./Table.css";
-import { tableHeader } from "./TableUtils";
-const Docx = require('docx-preview');
+import MaterialTable from 'material-table';
 
-export const CustomTable = () => {  
-  const test = () => {
-    const table = new Table({
-      rows: [tableHeader()]
-    });
-    const doc = new Document({
-      sections: [{
-        properties: {
-          page: {
-              margin: {
-                  top: 700,
-                  right: 700,
-                  bottom: 700,
-                  left: 700,
-              },
-          },
-        },
-        children: [table],
-      }],
-    });
+export interface TableProps {
+  columns?: Array<any>
+  data?: Array<any>;
+  actions?: Array<any>;
+}
 
-    return doc;   
+export const Table = (props: TableProps) => {
+  const { columns, data, actions } = props
+
+  const localization = {
+    body: {
+      emptyDataSourceMessage: "Нет данных"
+    },
+    header: {
+      actions: 'Действия'
+    },
+    toolbar: {
+      searchTooltip: "Поиск",
+      searchPlaceholder: "Поиск"
+    },
+    pagination: {
+      labelDisplayedRows: "{from}-{to} из {count}",
+      labelRowsSelect: "строк",
+      labelRowsPerPage: "Строк на странице",
+      firstAriaLabel: "Первая страница",
+      firstTooltip: "Первая страница",
+      previousAriaLabel: "Предыдущая страница",
+      previousTooltip: "Предыдущая страница",
+      nextAriaLabel: "Следующая страница",
+      nextTooltip: "Следующая страница",
+      lastAriaLabel: "Последняя страница",
+      lastTooltip: "Последняя страница"
+    }
   }
 
-  useEffect(() => {
-    const doc = test();
-
-    Packer.toBlob(doc).then((blob) => {      
-      Docx.renderAsync(blob, document.getElementsByClassName("table-doc")[0]);
-    });    
-  });
-  
   return (
-    <div className="table-doc"></div>
+      <MaterialTable
+          localization={localization}
+          columns={columns}
+          data={data}
+          actions={actions}
+          options={{
+            filtering: true,
+            actionsColumnIndex: -1,
+            searchFieldAlignment: "left",
+            draggable: false,
+            showTitle: false,
+            paginationType: "stepped",
+            pageSize: 10,
+            pageSizeOptions: []
+          }}
+      />
   );
 }

@@ -3,7 +3,7 @@ import { EDIT_TREAT, TreatsContainer } from "../Treats/TreatsContainer";
 import "./Board.css";
 
 interface BoardProps { 
-  typeIdent: string;
+  typeId: number;
   name: string;
   treats: Array<StateTreat>;
   onTreatChange: (id, type, date) => void;
@@ -11,21 +11,21 @@ interface BoardProps {
 }
 
 export const Board = (props: BoardProps) => {
-  const {typeIdent, name, treats, onTreatChange, onClearAll} = props;
+  const {typeId, name, treats, onTreatChange, onClearAll} = props;
   return (
     <div className="board-content">
       <div className="board-header">
         <h2>{name}</h2>
         {
           treats.length > 0 &&
-          <div className="clear-all" onClick={() => onClearAll(typeIdent)}>
+          <div className="clear-all" onClick={() => onClearAll(typeId)}>
             <span>Очистить все</span>
           </div>
         }
       </div>
       <TreatsContainer 
         style={"board-content-container"}
-        typeIdent= {typeIdent} 
+        typeId= {typeId}
         itemMode={EDIT_TREAT} 
         treats={treats}
         onTreatChange={onTreatChange}

@@ -1,35 +1,47 @@
-import { StateTreat, store } from "../../store/store";
+import { observer } from "mobx-react-lite";
+import { StateTreat } from "../../store/store";
 import { Board } from "../Board/Board";
 import { Sidebar } from "../Sidebar/Sidebar";
 import "./ReportEditor.css";
+import {Context} from "../../index";
+import { useContext } from "react";
 
-export const ReportEditor = () => {
-   
-  const types = store.getTypes();
-  const expandedTypeIdent = store.getExpandedTypeIdent();
+export const ReportEditor = observer(() => {
+  const { dataStore } = useContext(Context);
+
+  if (!dataStore.isLoaded()) {
+    return null;
+  }
+
+  const types = dataStore.getTypes();
+  const expandedTypeId = dataStore.getExpandedTypeId();
+  const searchValue = dataStore.getSearchValue();
+
   let treats: Array<StateTreat> = [];
-  let boardTreats: Array<StateTreat> = []
-  let searchValue = store.getSearchValue();
-  if (expandedTypeIdent) {
-    const typeByIdent = store.getStateType(expandedTypeIdent);
-    treats = typeByIdent.treats;
-    boardTreats = treats.filter(treat => typeByIdent.checkeds.includes(treat.id))
+  let boardTreats: Array<StateTreat> = [];
+  let typeName: string = "";
+
+  if (expandedTypeId) {
+    const stateItem = dataStore.getStateItem(expandedTypeId);
+    typeName = dataStore.getTypeNameById(expandedTypeId);
+    treats = stateItem.treats;
+    boardTreats = treats.filter(treat => stateItem.checkeds.includes(treat.id))
   }
 
-  const onExpand = (ident) => {
-    store.setExpandedTypeIdent(expandedTypeIdent !== ident ? ident : null);
+  const onExpand = (id) => {
+    dataStore.setExpandedTypeId(expandedTypeId !== id ? id : null);
   }
 
-  const onTreatChange = (id, type, date) => {
-    store.onTreatChange(id, type, date);
+  const onStateTreatChange = (id, typeId, date) => {
+    dataStore.onStateTreatChange(id, typeId, date);
   }
 
   const onSearchChange = (text) => {
-    store.onSearchChange(text);
+    dataStore.onSearchChange(text);
   } 
 
-  const onClearAll = (type) => {
-    store.onClearAll(type);
+  const onClearAll = (typeId) => {
+    dataStore.onClearAll(typeId);
   }
 
   return (
@@ -37,19 +49,19 @@ export const ReportEditor = () => {
       <Sidebar 
         types={types}
         expandedTypeTreats={treats}
-        expandedTypeIdent={expandedTypeIdent}
+        expandedTypeId={expandedTypeId}
         onExpand={onExpand}
-        onTreatChange={onTreatChange}
+        onTreatChange={onStateTreatChange}
         onSearchChange={onSearchChange}
         searchValue={searchValue}
       />
       <Board 
-        typeIdent={expandedTypeIdent}
-        name={types[expandedTypeIdent] || ""}
+        typeId={expandedTypeId}
+        name={typeName}
         treats={boardTreats}
-        onTreatChange={onTreatChange}
+        onTreatChange={onStateTreatChange}
         onClearAll={onClearAll}
       />
     </div>
   );
-}
+});

@@ -1,37 +1,31 @@
-import { EDIT_TAB, RESULT_TAB, Tabs } from "../Tabs/Tabs";
+import { observer } from "mobx-react-lite";
+import { useContext } from "react";
+import {DB_TAB, EDIT_TAB, RESULT_TAB, Tabs} from "../Tabs/Tabs";
 import "./app.css";
+import {Context} from "../../index";
 
-const App = () => {
+const App = observer(() => {
   const tabs = [
     {
-      name: "Редактировать",
+      name: "База данных",
+      ident: DB_TAB
+    },
+    {
+      name: "Создать лист назначений",
       ident: EDIT_TAB
     },
     {
-      name: "Результат",
+      name: "Готовый лист назначений",
       ident: RESULT_TAB
     }
   ];
-
-  const test = async () => {
-    const newPath = window.location.origin + "/api/test";
-    const response = await fetch(newPath);
-    const res = await response.json();
-    console.log(res);
-  }
   
   return (
     <div className="app-container">
       <Tabs tabs={tabs}/>
-      <button
-        onClick={() => {
-          test();
-        }}
-      >
-        test
-      </button>
+
     </div>
   );
-}
+})
 
 export default App;
