@@ -1,11 +1,8 @@
 import { Table } from "../Table/Table";
 import "./Database.css"
-import {DataBaseApi} from "../../api/Api";
 import {useContext, useState } from "react";
 import Modal from "../Modal/Modal";
-import TextControl from "../controls/TextControl/TextControl";
-import SelectControl from "../controls/SelectControl/SelectControl";
-import {getObjNameById} from "../../utils";
+import {TextControl} from "../controls/TextControl/TextControl";
 import WarningIcon from "../../icons/WarningIcon";
 import {Context} from "../../index";
 import { observer } from "mobx-react-lite";
@@ -16,11 +13,10 @@ interface IRowData {
     typeId?: number;
 }
 
-export const Database = observer(() => {
+export const DietsTable = observer(() => {
     const { dataStore } = useContext(Context);
     const [loaded, changeLoaded] = useState(false);
     const [data, changeData] = useState([]);
-    const [types, changeTypes] = useState([]);
     const [rowData, setRowData] = useState<IRowData>({});
     const [validName, setValidName] = useState(true);
     const [editActive, setEditActive] = useState(false);
@@ -37,13 +33,14 @@ export const Database = observer(() => {
             return null;
         }
 
-        const {id, name, typeId} = rowData;
+        const {id, name} = rowData;
 
         const onConfirm = () => {
-            dataStore.deleteTreat(String(id))
+            dataStore.deleteDiet(String(id))
                 .then(() => {
                     clearRowData();
                     setDeleteActive(false);
+                    changeLoaded(false);
                 });
         }
 
@@ -57,9 +54,8 @@ export const Database = observer(() => {
                 <div className="delete_modal_content" style={{display: "flex", alignItems: "center" }}>
                     <WarningIcon size={50} />
                     <span style={{marginLeft: "20px"}}>
-                        Вы пытаетесь удалить!<br/>
+                        Вы пытаетесь удалить диету!<br/>
                         Наименование: <br/> <b>{name}</b> <br/>
-                        Тип: <br/> <b>{getObjNameById(typeId, types)} </b>
                     </span>
                 </div>
             </Modal>
@@ -71,7 +67,7 @@ export const Database = observer(() => {
             return null;
         }
 
-        const {id, name, typeId} = rowData;
+        const {id, name} = rowData;
 
         const handleNameChange = (newName) => {
             if (!newName || !newName.length) {
@@ -82,18 +78,15 @@ export const Database = observer(() => {
             setRowData({...rowData, name: newName});
         }
 
-        const handleTypeChange = (newType) => {
-            setRowData({...rowData, typeId: newType});
-        }
-
         const onConfirm = () => {
             if (!name || !name.length) {
                 setValidName(false)
             } else {
-                dataStore.editTreat(String(id), name, typeId || types[0].id)
+                dataStore.editDiet(String(id), name)
                     .then(() => {
                         clearRowData();
                         setEditActive(false);
+                        changeLoaded(false);
                     });
             }
         }
@@ -113,13 +106,6 @@ export const Database = observer(() => {
                         onChange={e => handleNameChange(e.target.value)}
                         valid={validName}
                     />
-                    <SelectControl
-                        label="Тип"
-                        onChange={handleTypeChange}
-                        items={types}
-                        selectedId={typeId}
-                        placeholder={"Выберите тип..."}
-                    />
                 </div>
             </Modal>
         );
@@ -130,22 +116,28 @@ export const Database = observer(() => {
             return null;
         }
 
-        const {name, typeId} = rowData;
+        const {name} = rowData;
 
         const handleNameChange = (newName) => {
+            if (!newName || !newName.length) {
+                setValidName(false);
+            } else {
+                setValidName(true);
+            }
             setRowData({...rowData, name: newName});
         }
 
-        const handleTypeChange = (newType) => {
-            setRowData({...rowData, typeId: newType});
-        }
-
         const onConfirm = () => {
-            dataStore.createTreat(name, typeId || types[0].id)
-                .then(() => {
-                    clearRowData();
-                    setCreateActive(false);
-                });
+            if (!name || !name.length) {
+                setValidName(false)
+            } else {
+                dataStore.createDiet(name)
+                    .then(() => {
+                        clearRowData();
+                        setCreateActive(false);
+                        changeLoaded(false);
+                    });
+            }
         }
 
         return (
@@ -156,13 +148,7 @@ export const Database = observer(() => {
                         value={name || ""}
                         placeholder="Введите наименование..."
                         onChange={e => handleNameChange(e.target.value)}
-                    />
-                    <SelectControl
-                        label="Тип"
-                        onChange={handleTypeChange}
-                        items={types}
-                        selectedId={typeId}
-                        placeholder={"Выберите тип..."}
+                        valid={validName}
                     />
                 </div>
             </Modal>
@@ -170,13 +156,10 @@ export const Database = observer(() => {
     }
 
     const NAME = "name";
-    const TYPE_ID = "typeId";
-    const TYPE_NAME = "typeName";
 
     const columns = [
-        { title: 'Наименование', field: NAME },
-        { title: 'Тип', field: TYPE_NAME },
-    ]
+        { title: 'Наименование', field: NAME }
+    ];
 
     const actions = [
         {
@@ -203,32 +186,19 @@ export const Database = observer(() => {
         }
     ]
 
-    if (!loaded && dataStore.isLoaded() || dataStore.isNeedUpdate()) {
-        const types = dataStore.getTypes();
-        const treats = dataStore.getTreats();
-        const dataTypes = types.map(type => {
-            return {
-                id: type.id,
-                name: type.name
-            }
-        });
+    if (!loaded) {
+        dataStore.getDiets().then(diets => {
+            const data = diets && diets.data.map(diet => {
+                return {id: diet.id, [NAME]: diet.dietName}
+            });
 
-        const data = treats.map(item => {
-            return {
-                id: item.id,
-                [NAME]: item[NAME],
-                [TYPE_NAME]: getObjNameById(item.typeId, dataTypes),
-                [TYPE_ID]: item.typeId
-            }
+            changeLoaded(true);
+            changeData(data);
         });
-
-        changeLoaded(true);
-        changeData(data);
-        changeTypes(dataTypes);
     }
 
     return (
-        <div className="database-wrapper">
+        <div>
             <Table columns={columns} data={data} actions={actions}/>
             {editModal()}
             {deleteModal()}

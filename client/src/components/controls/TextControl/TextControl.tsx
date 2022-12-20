@@ -9,7 +9,7 @@ export interface TextControlProps {
     valid?: boolean;
 }
 
-const TextControl = (props: TextControlProps) => {
+export const TextControl = (props: TextControlProps) => {
     const {value, fontSize,  placeholder, onChange, label, valid} = props;
 
     if (label && label.length) {
@@ -41,4 +41,34 @@ const TextControl = (props: TextControlProps) => {
     );
 }
 
-export default TextControl;
+export const TextAreaControl = (props: TextControlProps) => {
+    const {value, fontSize,  placeholder, onChange, label, valid} = props;
+
+    if (label && label.length) {
+        return (
+            <div className="control-wrapper">
+                <label htmlFor={label}>{label}</label>
+                <textarea
+                    name={label}
+                    className={`control text-control ${typeof valid === 'boolean' && !valid ? "invalid-value-control" : ""}`}
+                    value={value}
+                    placeholder={placeholder}
+                    onChange={onChange}
+                    rows={5}
+                />
+                {typeof valid === 'boolean' && !valid && <span className="invalid-value-control-tooltip">* Заполните поле</span>}
+            </div>
+        )
+    }
+
+    return (
+        <textarea
+            className="control text-control"
+            value={value}
+            style={{fontSize: fontSize}}
+            placeholder={placeholder}
+            onChange={onChange}
+            rows={5}
+        />
+    );
+}

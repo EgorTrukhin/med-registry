@@ -8,12 +8,15 @@ class TypeController {
         return res.json(type);
     }
 
-    async delete() {
-
+    async delete(req, res) {
+        const { id } = req.params;
+        const type = await Type.destroy({where: {id}});
+        return res.json(type)
     }
 
     async edit(req, res) {
-        const { id } = req.body;
+        const { name } = req.body;
+        const { id } = req.params;
         const type = await Type.update({name}, {where: {id}});
         return res.json(type)
     }

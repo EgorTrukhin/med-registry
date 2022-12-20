@@ -4,10 +4,11 @@ export interface TableProps {
   columns?: Array<any>
   data?: Array<any>;
   actions?: Array<any>;
+  options?: any;
 }
 
 export const Table = (props: TableProps) => {
-  const { columns, data, actions } = props
+  const { columns, data, actions, options } = props
 
   const localization = {
     body: {
@@ -43,13 +44,13 @@ export const Table = (props: TableProps) => {
           actions={actions}
           options={{
             filtering: true,
-            actionsColumnIndex: -1,
             searchFieldAlignment: "left",
             draggable: false,
             showTitle: false,
             paginationType: "stepped",
             pageSize: 10,
-            pageSizeOptions: []
+            pageSizeOptions: [],
+            ...options
           }}
       />
   );

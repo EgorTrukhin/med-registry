@@ -125,6 +125,10 @@ export default class DataStore implements IDataStore {
         this._treats = treats;
     }
 
+    setTypes(types: Array<IType>): void {
+        this._types = types;
+    }
+
     getTypes(): Array<IType> {
         return this._types;
     }
@@ -175,6 +179,33 @@ export default class DataStore implements IDataStore {
     deleteTreat(id: number) {
       return DataBaseApi.deleteTreat(String(id))
           .then(_ => this.reloadTreats());
+    }
+
+    reloadTypes(): Promise<void> {
+        return DataBaseApi.getTypes()
+            .then(types => {
+                this.setTypes(truncateArrayObjects(types.data, ["id", "name"]));
+                this.updateState();
+                return Promise.resolve();
+            });
+    }
+
+    createType(name: string) {
+        return DataBaseApi.createType(name)
+            .then(_ => this.reloadTypes())
+            .then(_ => this.reloadTreats());
+    }
+
+    editType(id: number, name: string) {
+        return DataBaseApi.editType(String(id), name)
+            .then(_ => this.reloadTypes())
+            .then(_ => this.reloadTreats());
+    }
+
+    deleteType(typeId: string) {
+        return DataBaseApi.deleteType(typeId)
+            .then(_ => this.reloadTypes())
+            .then(_ => this.reloadTreats());
     }
 
     getState() {
@@ -244,5 +275,101 @@ export default class DataStore implements IDataStore {
         }
 
         this.setState(state);
+    }
+
+    getDiets() {
+        return DataBaseApi.getDiets();
+    }
+
+    createDiet(name: string) {
+        return DataBaseApi.createDiet(name);
+    }
+
+    editDiet(id: number, name: string) {
+        return DataBaseApi.editDiet(String(id), name);
+    }
+
+    deleteDiet(id: string) {
+        return DataBaseApi.deleteDiet(id);
+    }
+
+    getTreatments() {
+        return DataBaseApi.getTreatments();
+    }
+
+    createTreatment(name: string) {
+        return DataBaseApi.createTreatment(name);
+    }
+
+    editTreatment(id: number, name: string) {
+        return DataBaseApi.editTreatment(String(id), name);
+    }
+
+    deleteTreatment(id: string) {
+        return DataBaseApi.deleteTreatment(id);
+    }
+
+    getPatients() {
+        return DataBaseApi.getPatients();
+    }
+
+    createPatient(fn: string, sn: string, mn: string) {
+        return DataBaseApi.createPatient(fn, sn, mn);
+    }
+
+    editPatient(id: number, fn: string, sn: string, mn: string) {
+        return DataBaseApi.editPatient(String(id), fn, sn, mn);
+    }
+
+    deletePatient(id: string) {
+        return DataBaseApi.deletePatient(id);
+    }
+
+    getTemplateAttrs() {
+        return DataBaseApi.getTemplateAttrs();
+    }
+
+    createTemplateAttr(ident: string, description: string, inspectionListTemplateId: string) {
+        return DataBaseApi.createTemplateAttr(ident, description, inspectionListTemplateId);
+    }
+
+    editTemplateAttr(ident: string, description: string, inspectionListTemplateId: string) {
+        return DataBaseApi.editTemplateAttr(ident, description, inspectionListTemplateId);
+    }
+
+    deleteTemplateAttr(ident: string) {
+        return DataBaseApi.deleteTemplateAttr(ident);
+    }
+
+    getTemplateValues() {
+        return DataBaseApi.getTemplateValues();
+    }
+
+    createTemplateValue(value: string, templateAttrIdent: string) {
+        return DataBaseApi.createTemplateValue(value, templateAttrIdent);
+    }
+
+    editTemplateValue(id: string, value: string, templateAttrIdent: string) {
+        return DataBaseApi.editTemplateValue(id, value, templateAttrIdent);
+    }
+
+    deleteTemplateValue(id: string) {
+        return DataBaseApi.deleteTemplateValue(id);
+    }
+
+    getInspectionListTemplates() {
+        return DataBaseApi.getInspectionListTemplates();
+    }
+
+    createInspectionListTemplate(name: string, content: string) {
+        return DataBaseApi.createInspectionListTemplate(name, content);
+    }
+
+    editInspectionListTemplate(id: number, name: string, content: string) {
+        return DataBaseApi.editInspectionListTemplate(String(id), name, content);
+    }
+
+    deleteInspectionListTemplate(id: string) {
+        return DataBaseApi.deleteInspectionListTemplate(id);
     }
 }

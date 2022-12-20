@@ -1,0 +1,41 @@
+.MuiTableBody-root .MuiTableRow-root td:first-child div {
+    display: none !important;
+}
+
+.MuiTableBody-root .MuiTableRow-root:hover {
+    background-color: rgba(180, 180, 180, 0.13);
+}
+.MuiTableBody-root .MuiTableRow-root:hover td:first-child div {
+    display: flex !important;
+}
+
+.database-wrapper .MuiTableCell-head {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.MuiTableRow-head th:first-child span {
+    display: none !important;
+}
+
+.MuiTableRow-root td:first-child {
+    min-width: 120px;
+}
+
+.database-header {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.database-header i {
+    padding: 10px;
+    margin-right: 20px;
+}
+
+.database-header-go-back {
+    cursor: pointer;
+}
+
+/*.database-header-go-back:hover {*/
+/*    background-color: rgb(191, 191, 191);*/
+/*}*/
