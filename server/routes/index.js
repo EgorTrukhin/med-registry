@@ -11,6 +11,7 @@ const dietRouter = require("./dietRouter");
 const inspectionListTemplateRouter = require("./inspectionListTemplateRouter");
 const templateAttrRouter = require("./templateAttrRouter");
 const templateValueRouter = require("./templateValueRouter");
+const docRouter = require("./docRouter");
 
 router.use("/type", typeRouter);
 router.use("/treat", treatRouter);
@@ -23,5 +24,6 @@ router.use("/diet", dietRouter);
 router.use("/inspectionListTemplate", inspectionListTemplateRouter);
 router.use("/templateAttr", templateAttrRouter);
 router.use("/templateValue", templateValueRouter);
+router.use("/download", docRouter);
 
 module.exports = router;

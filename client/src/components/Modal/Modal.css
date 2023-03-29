@@ -46,6 +46,9 @@
     display: flex;
     justify-content: end;
     width: 100%;
+}
+
+.modal_close span {
     cursor: pointer;
 }
 

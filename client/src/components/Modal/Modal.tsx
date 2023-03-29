@@ -16,8 +16,10 @@ const Modal = (props: IModalProps) => {
     return (
         <div className={active ? "modal active" : "modal"} onClick={() => setActive(false)}>
             <div className={active ? "modal_content active" : "modal_content"} onClick={e => e.stopPropagation()}>
-                <div className="modal_close" onClick={() => setActive(false)}>
-                    <CloseIcon />
+                <div className="modal_close">
+                    <span onClick={() => setActive(false)}>
+                        <CloseIcon />
+                    </span>
                 </div>
                 <div className="modal_content_children">
                     {children}

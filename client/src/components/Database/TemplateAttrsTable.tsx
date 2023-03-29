@@ -1,5 +1,5 @@
 import { Table } from "../Table/Table";
-import "./Database.css"
+import "./ObjectsTable.css"
 import {useContext, useState } from "react";
 import Modal from "../Modal/Modal";
 import {TextControl} from "../controls/TextControl/TextControl";
@@ -118,6 +118,7 @@ export const TemplateAttrsTable = observer(() => {
                         placeholder="Введите идент..."
                         onChange={e => handleIdentChange(e.target.value)}
                         valid={validName}
+                        disabled={true}
                     />
                     <TextControl
                         label="Описание"

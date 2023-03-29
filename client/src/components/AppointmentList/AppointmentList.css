@@ -1,0 +1,40 @@
+.appointment {
+    height: 100%;
+}
+
+.report-editor-content {
+  display: flex;
+  height: 93%;
+}
+
+.report-editor-content .sidebar-content,
+.report-editor-content .board-content-wrapper
+ {
+  border: 2px solid #2A98C7;
+  border-radius: 15px;
+  padding: 15px;
+}
+
+.report-editor-content .sidebar-content {
+  width: 30%;
+  margin-right: 20px;
+}
+
+.report-editor-content .board-content-wrapper {
+  width: 70%;
+}
+
+.appointment-footer {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.createForm {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid #2A98C7;
+}

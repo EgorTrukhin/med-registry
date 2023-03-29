@@ -1,4 +1,16 @@
 import {$host} from "./index";
+import {AppointmentListHeader} from "../components/AppointmentList/AppointmentList";
+import {IFormValues} from "../components/InspectList/CreateForm";
+
+export interface ExcelRequestArgs {
+    header: AppointmentListHeader;
+    content: any;
+}
+
+export interface WordRequestArgs {
+    templateText: string;
+    values: IFormValues;
+}
 
 export abstract class DataBaseApi {
     private static async get(path: string) {
@@ -7,6 +19,18 @@ export abstract class DataBaseApi {
 
     private static async post(path: string, args: any) {
         return await $host.post("api/" + path, args);
+    }
+
+    private static async getFile(path: string, args) {
+        return await $host.post("api/" + path, args, { responseType: 'blob' });
+    }
+
+    public static excel(args: ExcelRequestArgs) {
+        return this.getFile("download/excel", args);
+    }
+
+    public static word(args: WordRequestArgs) {
+        return this.getFile("download/word", args);
     }
 
     public static getTreats() {
@@ -97,6 +121,10 @@ export abstract class DataBaseApi {
         return this.get("templateAttr");
     }
 
+    public static getTemplateAttrsByTemplateId(templateId) {
+        return this.get("templateAttr/" + templateId);
+    }
+
     public static createTemplateAttr(ident: string, description: string, inspectionListTemplateId: string) {
         return this.post("templateAttr/create", { ident, description, inspectionListTemplateId });
     }
@@ -111,6 +139,10 @@ export abstract class DataBaseApi {
 
     public static getTemplateValues() {
         return this.get("templateValue");
+    }
+
+    public static getTemplateValuesByAttrIdent(ident) {
+        return this.get("templateValue/" + ident);
     }
 
     public static createTemplateValue(value: string, templateAttrIdent: string) {

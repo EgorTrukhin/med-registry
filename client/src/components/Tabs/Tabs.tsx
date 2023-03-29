@@ -1,6 +1,6 @@
 import {useContext, useState } from "react";
-import { ReportEditor } from "../ReportEditor/ReportEditor";
-import { ReportResult } from "../ReportResult/ReportResult";
+import { AppointmentList } from "../AppointmentList/AppointmentList";
+import { InspectList } from "../InspectList/InspectList";
 import "./Tabs.css";
 import { observer } from "mobx-react-lite";
 import {ObjectsTable} from "../Database/ObjectsTable";
@@ -33,13 +33,13 @@ export const Tabs = observer((props: TabsProps) => {
       case EDIT_TAB:
         return (
           <div className="tab-content">
-              <ReportEditor />
+              <AppointmentList />
           </div>
         );
       case RESULT_TAB:
         return (
           <div className="tab-content">
-              <ReportResult />
+              <InspectList />
           </div>
         );
     }

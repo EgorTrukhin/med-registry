@@ -25,6 +25,12 @@ class TemplateValueController {
         const templateValues = await TemplateValue.findAll();
         return res.json(templateValues);
     }
+
+    async getValuesByAttrIdent(req, res) {
+        const {templateAttrIdent} =  req.params;
+        const templateValues = await TemplateValue.findAll({where: {templateAttrIdent}});
+        return res.json(templateValues);
+    }
 }
 
 module.exports = new TemplateValueController();

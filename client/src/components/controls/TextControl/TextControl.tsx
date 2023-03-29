@@ -7,24 +7,27 @@ export interface TextControlProps {
     fontSize?: number;
     onChange?: (value) => void;
     valid?: boolean;
+    disabled?: boolean;
 }
 
 export const TextControl = (props: TextControlProps) => {
-    const {value, fontSize,  placeholder, onChange, label, valid} = props;
+    const {value, fontSize,  placeholder, onChange, label, valid, disabled} = props;
 
     if (label && label.length) {
+        const isValid = valid !== undefined ? valid : value && value.length;
         return (
             <div className="control-wrapper">
                 <label htmlFor={label}>{label}</label>
                 <input
                     name={label}
-                    className={`control text-control ${!valid ? "invalid-value-control" : ""}`}
+                    className={`control text-control ${!isValid ? "invalid-value-control" : ""}`}
                     value={value}
                     type="text"
                     placeholder={placeholder}
                     onChange={onChange}
+                    disabled={disabled}
                 />
-                {!valid && <span className="invalid-value-control-tooltip">* Заполните поле</span>}
+                {!isValid && <span className="invalid-value-control-tooltip">* Заполните поле</span>}
             </div>
         )
     }

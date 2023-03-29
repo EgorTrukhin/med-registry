@@ -1,0 +1,128 @@
+.inspect-list-wrapper {
+  height: 100%;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.insp-button {
+  border: 1px solid #2A98C7;
+  border-radius: 20px;
+  font-size: 30px;
+  background-color: rgb(246, 246, 246);
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  padding: 20px;
+}
+
+.create-form {margin-right: 10px}
+.create-template {margin-left: 10px}
+
+.template-editor,
+.form-editor {
+  width: 100%;
+}
+
+.template-editor-header,
+.form-editor-header {
+  display: flex;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+.template-editor-header span,
+.form-editor-header span {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.tox-notifications-container {
+  display: none;
+}
+
+.create-template-footer {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.create-template-btn,
+.create-form-btn{
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid #2A98C7;
+}
+
+.no-access {
+  cursor: not-allowed;
+}
+
+.create-template-exist-attrs {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  border-bottom: 1px solid black;
+}
+
+.create-template-exist-attrs:hover {
+  background-color: #e8e8e8;
+}
+
+.template-select-control {
+  margin-bottom: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.template-select-control .control-wrapper {
+  min-width: 300px;
+}
+
+.values-board-content-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+
+  border-radius: 10px;
+  border: 1px solid dodgerblue;
+  background-color: #f8f8f8;
+  padding: 20px;
+}
+
+.values-board-content-wrapper .no-content {
+  height: 100%;
+  display: flex;
+  opacity: .7;
+}
+
+.values-board-content {
+  width: 100%;
+}
+
+.values-board-item-wrapper {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 1px solid black;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.values-board-item-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

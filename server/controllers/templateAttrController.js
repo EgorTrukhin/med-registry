@@ -25,6 +25,12 @@ class TemplateAttrController {
         const templateAttrs = await TemplateAttr.findAll();
         return res.json(templateAttrs);
     }
+
+    async getByTemplateId(req, res) {
+        const { inspectionListTemplateId } = req.params;
+        const templateAttrs = await TemplateAttr.findAll({where: {inspectionListTemplateId}});
+        return res.json(templateAttrs);
+    }
 }
 
 module.exports = new TemplateAttrController();

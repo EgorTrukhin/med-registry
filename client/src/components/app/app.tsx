@@ -1,21 +1,19 @@
 import { observer } from "mobx-react-lite";
-import { useContext } from "react";
 import {DB_TAB, EDIT_TAB, RESULT_TAB, Tabs} from "../Tabs/Tabs";
 import "./app.css";
-import {Context} from "../../index";
 
 const App = observer(() => {
   const tabs = [
     {
-      name: "База данных",
+      name: "Справочники",
       ident: DB_TAB
     },
     {
-      name: "Создать лист назначений",
+      name: "Лист назначений",
       ident: EDIT_TAB
     },
     {
-      name: "Готовый лист назначений",
+      name: "Лист осмотра",
       ident: RESULT_TAB
     }
   ];

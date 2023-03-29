@@ -3,17 +3,7 @@ import {makeAutoObservable} from "mobx";
 import {truncateArrayObjects} from "../utils";
 import {CLEAR_DATE} from "../components/controls/DatePicker/DatePicker";
 import moment from "moment";
-
-export interface ITreat {
-  id: number;
-  name: string;
-  typeId: number;
-}
-
-export interface IType {
-  id: number;
-  name: string;
-}
+import {ITreat, IType} from "./models";
 
 export interface StateTreat {
     id: number;
@@ -108,7 +98,7 @@ export default class DataStore implements IDataStore {
                 if (treat.checked) {
                     data[ident].push({
                         name: treat.name,
-                        date: moment(treat.date).format("DD.MM.YY")
+                        date: treat.date && moment(treat.date).format("DD.MM.YY")
                     });
                 }
             });

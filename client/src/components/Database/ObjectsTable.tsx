@@ -1,5 +1,5 @@
 import { Table } from "../Table/Table";
-import "./Database.css"
+import "./ObjectsTable.css"
 import {useState } from "react";
 import { observer } from "mobx-react-lite";
 import ArrowBack from "../../icons/ArrowBack";

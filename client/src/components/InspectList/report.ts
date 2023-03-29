@@ -132,7 +132,7 @@ export default class Report {
             let value = "";
             let date = "";
             const treats = this.data[key];
-            treats.forEach(treat => {
+            (treats || []).forEach(treat => {
                 const offset = Math.ceil(treat.name.length / 25);
                 date += treat.date + "\n";
                 for (let i = 0; i < offset; i++) {

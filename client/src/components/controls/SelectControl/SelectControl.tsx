@@ -15,15 +15,16 @@ export interface SelectControlProps {
 
 const SelectControl = (props: SelectControlProps) => {
     const {items, selectedId, onChange, label, placeholder} = props;
+    const placeholderOption = [<option value="" disabled selected>{placeholder}</option>]
     return (
         <div className="control-wrapper">
             <label htmlFor={label}>{label}</label>
             <select name={label} className="control select-control" id="quest-mode" onChange={(e) => onChange(e.target.value)} placeholder={placeholder}>
-                {items && items.map(item => {
+                {items && placeholderOption.concat(items.map(item => {
                     return (
                         <option className="select-control-item" value={item.id} selected={String(item.id) === String(selectedId)}>{item.name}</option>
                     );
-                })}
+                }))}
             </select>
         </div>
     );
